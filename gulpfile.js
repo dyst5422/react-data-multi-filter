@@ -2,8 +2,8 @@ var gulp = require('gulp');
 var ts = require('gulp-typescript');
 var rename = require("gulp-rename");
 var sourcemaps = require('gulp-sourcemaps');
-var merge = require('merge-stream');
 var strip = require('gulp-strip-comments');
+var merge = require('merge-stream');
 
 var tsCjsProject = ts.createProject('tsconfig.json', { module: 'commonjs' });
 var tsMjsProject = ts.createProject('tsconfig.json', { module: 'esnext' });
@@ -19,12 +19,15 @@ gulp.task('default', function () {
         path.extname = ".mjs"
       }
     }))
+    .pipe(strip())
+    .pipe(gulp.dest('build/es'));
 
   const cjs = source
     .pipe(tsCjsProject())
     .pipe(sourcemaps.write('.'))
-
-  return merge(mjs, cjs)
     .pipe(strip())
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('build/cjs'));
+
+
+  return merge(mjs, cjs);
 });

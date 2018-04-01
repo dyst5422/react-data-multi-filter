@@ -1,10 +1,10 @@
 {
   "name": "react-data-multi-filter",
   "author": "Dylan Stewart <jdylanstewart@gmail.com>",
-  "main": "build/index.js",
-  "jsnext:main": "build/index.mjs",
-  "typings": "build/index.d.ts",
-  "version": "0.5.7",
+  "main": "build/cjs/index.js",
+  "jsnext:main": "build/es/index.mjs",
+  "typings": "build/es/index.d.ts",
+  "version": "0.5.8",
   "keywords": [
     "react",
     "data",

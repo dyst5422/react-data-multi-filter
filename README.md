@@ -16,9 +16,8 @@ const MyComponent = () => {
   const data = [0, 1, 2, 3, 4, 5];
   const greaterThanTwo = (datum: number) => datum > 2;
   const lessThanFive = (datum: number) => datum < 5;
-  const myFilters = { greaterThanTwo, lessThanFive };
   return (
-    <DataFilter data={data} filters={myFilters}>
+    <DataFilter data={data} filters={{ greaterThanTwo, lessThanFive }}>
       {({ filteredInData, addFilter }) => (
         <>
           <button onClick={() => addFilter({ equalToThree: datum => datum === 3 })}>AddFilter</button>
@@ -39,10 +38,9 @@ const MyComponent = () => {
   const data = [0, 1, 2, 3, 4, 5];
   const greaterThanTwo = (datum: number) => datum > 2;
   const lessThanFive = (datum: number) => datum < 5;
-  const myFilters = { greaterThanTwo, lessThanFive };
   return (
-    <DataFilterContext.Provider data={data} filters={myFilters}>
-      <DataFilterContext.Consumer>
+    <DataFilterContext.Provider data={data} filters={{ greaterThanTwo }}>
+      <DataFilterContext.Consumer filters={{ lessThanFive }}>
         {({ filteredInData }) => (
           <span>
             {filteredInData}
