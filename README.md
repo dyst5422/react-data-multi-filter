@@ -173,6 +173,7 @@ export interface DataFilterContext<T>.Provider {
 export interface DataFilterContext<T>.Consumer {
   exclude?: string[]; // Keys of filters to exclude
   include?: string[]; // Keys of filters to include
+  filters?: { [key: string]: (datum: T, idx?: number, data?: T[]) => boolean }; // Filters added by this component
   children: (props: { // Render Props
     filteredInData: T[]; // Data included by the filters
     filteredOutData: T[]; // Data excluded by the filters
