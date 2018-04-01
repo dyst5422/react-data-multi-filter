@@ -187,7 +187,7 @@ export interface DataFilterContext<T>.Consumer {
     addFilters: (filters: { // Add new filters dynamically
       [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
     }) => void;
-    removeFilter: (removeKeys: string[]) => void; // Remove filters by keys dynamically
+    removeFilters: (removeKeys: string[]) => void; // Remove filters by keys dynamically
     filterData: (opts?: { // Function to apply a custom filter set
       exclude?: string[]; // Keys of filters to exclude
       include?: string[]; // Keys of filters to include
