@@ -151,6 +151,12 @@ export class DataFilter<T> extends React.Component<DataFilterProps<T>, DataFilte
     // tslint:disable-next-line:no-any
     [key: string]: { (datum: T, idx?: number, data?: T[]): boolean; [key: string]: any };
   }) => {
+    for (const key of Object.keys(filters)) {
+      if (Object.keys(this.state.filters).includes(key)) {
+        console.warn(`React-Data-Multi-Filter: Overwriting an existing filter with key [${key}]`);
+      }
+    }
+
     this.setState({
       filters: {
         ...this.state.filters,
