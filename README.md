@@ -8,7 +8,7 @@ Render prop and Context API makes the component extremely flexible.
 
 ## Usage
 
-This can either be used as a standalone component with render props...
+This is a standalone component with render props...
 ```tsx
 import { DataFilter } from 'react-data-multi-filter';
 
@@ -31,7 +31,7 @@ const MyComponent = () => {
   );
 }
 ```
-...or as a context provider...
+...and a context provider...
 ```tsx
 import { DataFilterContext } from 'react-data-multi-filter';
 
@@ -126,26 +126,17 @@ Named Exports:
 export interface DataFilterProps<T> {
   data: T[]; // Data to filter
   filters?: { // Associative array of initial filters
-      [key: string]: {
-          (datum: T, idx?: number, data?: T[]): boolean;
-          [key: string]: any;
-      };
+      [key: string]: (datum: T, idx?: number, data?: T[]): boolean;
   };
   children: (props: { // Render props
       filteredInData: T[]; // Data included by the filters
       filteredOutData: T[]; // Data excluded by the filters
       allData: T[]; // Full data set
-      filters: { // Associative array of all current the filters
-          [key: string]: {
-              (datum: T, idx?: number, data?: T[]): boolean;
-              [key: string]: any;
-          };
+      filters: { // Associative array of all filters
+          [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
       };
-      activeFilters: { // Associative array of all current the filters
-          [key: string]: {
-              (datum: T, idx?: number, data?: T[]): boolean;
-              [key: string]: any;
-          };
+      activeFilters: { // Associative array of all active filters
+          [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
       };
       addFilters: (filters: { // Add filters dynamically
           [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
@@ -157,11 +148,8 @@ export interface DataFilterProps<T> {
       }) => {
           filteredInData: T[]; // Data included by the custom filter set
           filteredOutData: T[];// Data excluded by the custom filter set
-          activeFilters: { // Filters applied
-              [key: string]: {
-                  (datum: T, idx?: number, data?: T[]): boolean;
-                  [key: string]: any;
-              };
+          activeFilters: { // Associative array of all active filters
+              [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
           };
       };
   }) => JSX.Element;
@@ -174,10 +162,7 @@ export interface DataFilterProps<T> {
 export interface DataFilterContext<T>.Provider {
   data: T[]; // Data to filter
   filters?: { // Associative array of initial filters
-      [key: string]: {
-          (datum: T, idx?: number, data?: T[]): boolean;
-          [key: string]: any;
-      };
+      [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
   };
 }
 ```
@@ -208,7 +193,7 @@ export interface DataFilterContext<T>.Consumer {
     }) => {
       filteredInData: T[]; // Data included by the custom filter set
       filteredOutData: T[]; // Data excluded by the custom filter set
-      activeFilters: {
+      activeFilters: { // Associative array of all active filters
         [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
       };
     };

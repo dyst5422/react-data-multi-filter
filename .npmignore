@@ -3,3 +3,4 @@ tsconfig.json
 tsconfig.test.json
 tslint.json
 yarn.lock
+.vscode
