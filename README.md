@@ -126,32 +126,32 @@ Named Exports:
 export interface DataFilterProps<T> {
   data: T[]; // Data to filter
   filters?: { // Associative array of initial filters
-      [key: string]: (datum: T, idx?: number, data?: T[]): boolean;
+    [key: string]: (datum: T, idx?: number, data?: T[]): boolean;
   };
   children: (props: { // Render props
-      filteredInData: T[]; // Data included by the filters
-      filteredOutData: T[]; // Data excluded by the filters
-      allData: T[]; // Full data set
-      filters: { // Associative array of all filters
-          [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
-      };
+    filteredInData: T[]; // Data included by the filters
+    filteredOutData: T[]; // Data excluded by the filters
+    allData: T[]; // Full data set
+    filters: { // Associative array of all filters
+      [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
+    };
+    activeFilters: { // Associative array of all active filters
+      [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
+    };
+    addFilters: (filters: { // Add filters dynamically
+      [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
+    }) => void;
+    removeFilters: (removeKeys: string[]) => void; // Remove filters by key dynamically
+    filterData: (opts?: { // Function to apply a custom filter set
+      exclude?: string[]; // Keys of filters to exclude
+      include?: string[]; // Keys of filters to include
+    }) => {
+      filteredInData: T[]; // Data included by the custom filter set
+      filteredOutData: T[];// Data excluded by the custom filter set
       activeFilters: { // Associative array of all active filters
-          [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
+        [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
       };
-      addFilters: (filters: { // Add filters dynamically
-          [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
-      }) => void;
-      removeFilters: (removeKeys: string[]) => void; // Remove filters by key dynamically
-      filterData: (opts?: { // Function to apply a custom filter set
-          exclude?: string[]; // Keys of filters to exclude
-          include?: string[]; // Keys of filters to include
-      }) => {
-          filteredInData: T[]; // Data included by the custom filter set
-          filteredOutData: T[];// Data excluded by the custom filter set
-          activeFilters: { // Associative array of all active filters
-              [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
-          };
-      };
+    };
   }) => JSX.Element;
 }
 ```
@@ -162,7 +162,7 @@ export interface DataFilterProps<T> {
 export interface DataFilterContext<T>.Provider {
   data: T[]; // Data to filter
   filters?: { // Associative array of initial filters
-      [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
+    [key: string]: (datum: T, idx?: number, data?: T[]) => boolean;
   };
 }
 ```
